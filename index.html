@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d20">
+  <meta name="description" content="A little corner of the world belonging to Abhijit Kumar.">
+  <title>Abhijit Kumar — A Little About Me</title>
+  <style>
+    :root {
+      --ink: #f4f5ff;
+      --muted: #c0c8e5;
+      --blue: #8bbaff;
+      --violet: #c1a0ff;
+      --glass: rgba(13, 22, 49, .48);
+      --line: rgba(210, 222, 255, .24);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #070b1b; overflow-x: hidden;
+    }
+    a { color: inherit; }
+    .scene {
+      min-height: 100vh; position: relative; isolation: isolate; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 78% 55%, rgba(255, 174, 120, .62) 0, rgba(192, 105, 147, .32) 15%, transparent 39%),
+        radial-gradient(ellipse at 53% 18%, rgba(83, 85, 177, .42), transparent 44%),
+        linear-gradient(180deg, #070d22 0%, #151a3b 39%, #563d68 66%, #e18a79 79%, #172344 100%);
+    }
+    .stars, .stars::before, .stars::after {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 8% 14%, #fff 50%, transparent 60%),
+        radial-gradient(1px 1px at 22% 27%, #dbe6ff 50%, transparent 60%),
+        radial-gradient(2px 2px at 38% 10%, #fff 50%, transparent 60%),
+        radial-gradient(1px 1px at 52% 22%, #fff 50%, transparent 60%),
+        radial-gradient(2px 2px at 68% 13%, #e4d9ff 50%, transparent 60%),
+        radial-gradient(1px 1px at 83% 29%, #fff 50%, transparent 60%),
+        radial-gradient(1px 1px at 92% 12%, #fff 50%, transparent 60%),
+        radial-gradient(2px 2px at 14% 39%, #d8e2ff 50%, transparent 60%);
+      opacity: .75; animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    .stars::before { content: ""; transform: translateY(12px); opacity: .5; animation-delay: -2s; }
+    .stars::after { content: ""; transform: translateY(-8px); opacity: .4; animation-delay: -3s; }
+    .moon {
+      position: absolute; top: 12%; right: 12%; width: 34px; height: 34px; border-radius: 50%;
+      background: #ffe2cf; box-shadow: 0 0 35px rgba(255, 218, 211, .35);
+    }
+    .moon::after {
+      content: ""; position: absolute; width: 31px; height: 31px; border-radius: 50%;
+      background: #171a3a; top: -7px; left: 10px;
+    }
+    .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 38%; z-index: -1; }
+    .mountains svg { width: 100%; height: 100%; display: block; }
+    .water {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 14%;
+      background: linear-gradient(180deg, rgba(18, 29, 61, .25), rgba(5, 12, 31, .94));
+      z-index: -1;
+    }
+    .water::after {
+      content: ""; position: absolute; top: 18%; left: 53%; width: 25%; height: 2px;
+      background: #ffc6ad; opacity: .65; filter: blur(3px);
+      box-shadow: 0 12px 0 #eeb1c0, 15px 27px 0 #d3a8d4, -20px 40px 0 #b4c6ff;
+    }
+    header {
+      max-width: 1180px; margin: auto; padding: 28px 26px;
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+      position: relative; z-index: 2;
+    }
+    .signature { font-family: "Brush Script MT", "Segoe Script", cursive; font-size: clamp(25px, 4vw, 38px); }
+    .eyebrow { margin-top: 3px; color: #d8e1ff; font-size: 10px; letter-spacing: 4px; }
+    .top-quote { color: #e2e5ff; font-family: Georgia, serif; font-size: 15px; line-height: 1.55; text-align: right; max-width: 190px; }
+    main {
+      width: min(1100px, calc(100% - 36px)); margin: 42px auto 0;
+      display: grid; grid-template-columns: 1.12fr .88fr; gap: 22px; position: relative; z-index: 1;
+      padding-bottom: 100px;
+    }
+    .glass {
+      background: linear-gradient(135deg, rgba(23, 35, 72, .67), rgba(13, 20, 45, .43));
+      border: 1px solid var(--line); border-radius: 28px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 24px 75px rgba(3, 6, 22, .24), inset 0 1px rgba(255,255,255,.12);
+    }
+    .intro { padding: clamp(24px, 4vw, 44px); }
+    .intro-top { display: flex; align-items: center; gap: 24px; }
+    .portrait-wrap {
+      flex: 0 0 140px; width: 140px; height: 140px; border-radius: 50%; padding: 4px;
+      background: linear-gradient(140deg, #a5dcff, #9a82ff, #f5b9e5);
+      box-shadow: 0 0 28px rgba(111, 142, 255, .55);
+    }
+    .portrait { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center 35%; border: 2px solid rgba(255,255,255,.7); }
+    .greeting { color: #bcd1ff; font-family: Georgia, serif; font-size: 16px; margin-bottom: 8px; }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(36px, 5vw, 58px); line-height: 1.04; letter-spacing: -1.8px; margin: 0; }
+    h1 span { display: block; background: linear-gradient(95deg, #83bcff, #c5a0ff 70%, #f5d8ff); color: transparent; background-clip: text; -webkit-background-clip: text; }
+    .subtitle { color: #d0d9f5; font-family: Georgia, serif; margin-top: 13px; font-size: 17px; }
+    .description { margin: 30px 0 0; color: #d0d7ef; line-height: 1.85; font-size: 15px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+    .pill { padding: 9px 13px; border: 1px solid rgba(170,194,255,.25); background: rgba(255,255,255,.045); border-radius: 99px; color: #dbe5ff; font-size: 12px; }
+    .bottom-row { border-top: 1px solid rgba(220,228,255,.2); margin-top: 30px; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .social { display: inline-flex; align-items: center; gap: 10px; color: #e9eaff; text-decoration: none; font-size: 14px; transition: color .2s, transform .2s; }
+    .social:hover { color: #c5b2ff; transform: translateY(-2px); }
+    .insta-icon { width: 22px; height: 22px; border: 1.8px solid currentColor; border-radius: 6px; display: inline-grid; place-items: center; font-size: 15px; line-height: 1; }
+    .thanks { font-family: "Brush Script MT", "Segoe Script", cursive; font-size: 25px; text-align: right; color: #e1dcff; }
+    .thanks small { display: block; font-family: inherit; font-size: 10px; letter-spacing: 2px; margin-top: 4px; }
+    .quotes { padding: clamp(24px, 3vw, 34px); }
+    .section-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; font-family: Georgia, serif; font-size: 23px; }
+    .section-title span { color: #a9a5ff; }
+    .quote { display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 20px 0; border-bottom: 1px solid rgba(220,228,255,.15); }
+    .quote:last-child { border-bottom: 0; padding-bottom: 0; }
+    .mark { color: #9d9bff; font-family: Georgia, serif; font-size: 34px; line-height: .9; }
+    blockquote { margin: 0; font-family: Georgia, serif; font-size: 17px; line-height: 1.55; color: #f2f2ff; }
+    .attribution { margin-top: 8px; color: #aab9e3; font-size: 12px; }
+    .bottom-note { position: relative; z-index: 1; text-align: center; padding: 0 20px 30px; color: #dbe5ff; letter-spacing: 4px; font-size: 11px; }
+    .bottom-note span { color: #aebaff; }
+    .bottom-note .leaf { display: block; font-size: 20px; margin-top: 12px; letter-spacing: 0; }
+    @keyframes twinkle { from { opacity: .35; } to { opacity: .9; } }
+    @media (max-width: 780px) {
+      header { padding: 22px 20px; }
+      main { grid-template-columns: 1fr; margin-top: 22px; }
+      .top-quote { font-size: 12px; }
+      .portrait-wrap { flex-basis: 108px; width: 108px; height: 108px; }
+      .intro-top { gap: 17px; }
+      .subtitle { font-size: 15px; }
+      .mountains { height: 28%; }
+    }
+    @media (max-width: 430px) {
+      header { align-items: flex-start; }
+      .eyebrow { letter-spacing: 2.4px; }
+      .top-quote { max-width: 130px; }
+      .intro-top { align-items: flex-start; flex-direction: column; }
+      .portrait-wrap { width: 112px; height: 112px; }
+      h1 { font-size: 42px; }
+      .bottom-row { align-items: flex-start; flex-direction: column; }
+      .thanks { text-align: left; }
+      .section-title { font-size: 21px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="stars" aria-hidden="true"></div>
+    <div class="moon" aria-hidden="true"></div>
+    <div class="mountains" aria-hidden="true">
+      <svg viewBox="0 0 1440 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="mountainA" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#263052"/><stop offset="1" stop-color="#09142b"/></linearGradient>
+          <linearGradient id="mountainB" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#192342"/><stop offset="1" stop-color="#050b1a"/></linearGradient>
+        </defs>
+        <path d="M0 205 L105 130 185 185 285 78 390 180 500 118 610 202 715 90 825 190 920 135 1035 218 1150 115 1250 178 1355 95 1440 160 V420 H0Z" fill="url(#mountainA)" opacity=".86"/>
+        <path d="M0 265 L120 190 215 242 350 145 455 252 570 195 680 276 790 172 910 258 1025 190 1145 280 1265 175 1360 235 1440 205 V420 H0Z" fill="url(#mountainB)"/>
+        <path d="M0 310 Q180 278 320 318 T650 306 T980 315 T1440 292 V420 H0Z" fill="#071126" opacity=".92"/>
+      </svg>
+    </div>
+    <div class="water" aria-hidden="true"></div>
+
+    <header>
+      <div>
+        <div class="signature">Abhijit Kumar</div>
+        <div class="eyebrow">DREAM · LEARN · GROW</div>
+      </div>
+      <div class="top-quote">A better version of me,<br>every single day.</div>
+    </header>
+
+    <main>
+      <section class="glass intro" id="home" aria-label="Introduction">
+        <div class="intro-top">
+          <div class="portrait-wrap">
+            <img class="portrait" src="assets/profile.jpg" alt="Portrait of Abhijit Kumar">
+          </div>
+          <div>
+            <div class="greeting">A little about me</div>
+            <h1>Hi, I'm <span>Abhijit Kumar.</span></h1>
+            <div class="subtitle">A quiet soul with a world of thoughts.</div>
+          </div>
+        </div>
+
+        <p class="description">
+          I find beauty in little things, peace in quiet moments, and meaning in the words that stay with us.
+          Still learning, still growing, and choosing to become a little better every day.
+        </p>
+
+        <div class="pills" aria-label="Personal values">
+          <span class="pill">Quiet moments</span>
+          <span class="pill">Kind energy</span>
+          <span class="pill">Deep thoughts</span>
+          <span class="pill">Small joys</span>
+        </div>
+
+        <div class="bottom-row">
+          <a class="social" href="https://www.instagram.com/abhijitxngh_/" target="_blank" rel="noopener noreferrer" aria-label="Visit Abhijit on Instagram">
+            <span class="insta-icon" aria-hidden="true">◎</span>
+            <span>@abhijitxngh_ ↗</span>
+          </a>
+          <div class="thanks">Thank you<small>FOR BEING HERE ♥</small></div>
+        </div>
+      </section>
+
+      <section class="glass quotes" id="quotes" aria-label="Favorite quotes">
+        <div class="section-title"><span>✦</span> Some quotes I live by <span>────</span></div>
+        <article class="quote">
+          <div class="mark">“</div>
+          <div><blockquote>Some souls speak in silence.</blockquote><div class="attribution">— A quiet reminder</div></div>
+        </article>
+        <article class="quote">
+          <div class="mark">“</div>
+          <div><blockquote>Not everything beautiful needs to be understood.</blockquote><div class="attribution">— A little perspective</div></div>
+        </article>
+        <article class="quote">
+          <div class="mark">“</div>
+          <div><blockquote>Quiet mind. Deep feelings. Rare energy.</blockquote><div class="attribution">— A way of being</div></div>
+        </article>
+        <article class="quote">
+          <div class="mark">“</div>
+          <div><blockquote>I belong to the moments words cannot explain.</blockquote><div class="attribution">— For the unspoken</div></div>
+        </article>
+        <article class="quote">
+          <div class="mark">“</div>
+          <div><blockquote>Let life be soft, and let your heart stay kind.</blockquote><div class="attribution">— A gentle thought</div></div>
+        </article>
+      </section>
+    </main>
+
+    <div class="bottom-note">GOOD THINGS <span>TAKE TIME</span><div class="leaf">✦</div></div>
+  </div>
+</body>
+</html>
